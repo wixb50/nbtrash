@@ -1,0 +1,53 @@
+.recycle-bin-instructions {
+  display: inline-block;
+  padding-top: 4px;
+}
+
+.trash_list_item:hover .trash_list_item {
+  background-color: #ddd;
+}
+.trash_list_item a {
+  text-decoration: none;
+}
+.trash_list_item:hover {
+  background-color: #fafafa;
+}
+
+.trash_list_item > div {
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 7px;
+  padding-right: 7px;
+  line-height: 22px;
+}
+
+.trash_list_item > div input {
+  margin-right: 7px;
+  margin-left: 14px;
+  vertical-align: text-bottom;
+  line-height: 22px;
+  position: relative;
+  top: -1px;
+}
+
+.trash_list_item > div .item_link {
+  margin-left: -1px;
+  vertical-align: baseline;
+  line-height: 22px;
+}
+
+.trash_list_item input:not([type=checkbox]) {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  height: 22px;
+  line-height: 14px;
+  margin: 0;
+}
+
+.trash_list_item {
+  border-bottom: 1px solid #ddd;
+}
+
+.trash_list_item:last-child {
+  border-bottom: 0;
+}
