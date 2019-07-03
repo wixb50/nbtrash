@@ -24,6 +24,6 @@ jupyter nbextension enable --py nbtrash --sys-prefix
 
 ### Trash Dir
 
-Set the environment `XDG_DATA_HOME` to notebook host/container for trash directory.
+Default is `/home/jovyan/work/.Trash`,you can custom it by follow [send2trash](https://github.com/hsoft/send2trash).
 
 **The work dir must the same device with trade dir.**

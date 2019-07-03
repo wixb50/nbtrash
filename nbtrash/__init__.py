@@ -28,7 +28,7 @@ class TrashHandler(APIHandler):
     # 默认工作目录
     root_dir = "/home/jovyan/work"
     # 回收站目录，环境变量设置，必须保证和工作目录属于同一device
-    trash_dir = os.path.join(os.path.expanduser(os.environ.get('XDG_DATA_HOME', '~/.local/share')), "Trash")
+    trash_dir = os.path.join("/home/jovyan/work", ".Trash")
 
     trash_info_dir = os.path.join(trash_dir, "info")
     trash_file_dir = os.path.join(trash_dir, "files")
@@ -71,8 +71,8 @@ class TrashHandler(APIHandler):
             # distinguish errors from send2trash, assume that we can only trash
             # files on the same partition as the home directory.
             file_dev = os.stat(os_path).st_dev
-            home_dev = os.stat(self.trash_dir).st_dev
-            return file_dev == home_dev
+            trash_dev = os.stat(self.trash_dir).st_dev
+            return file_dev == trash_dev
 
         for path in send_tanshs:
             path = path.strip('/')
@@ -88,7 +88,7 @@ class TrashHandler(APIHandler):
                 send2trash(os_path)
             else:
                 self.log.warning("Skipping trash for %s, on different device "
-                                 "to home directory", os_path)
+                                 "to trash directory", os_path)
         self.write(json.dumps(TrashHandler.ok_status))
 
     @web.authenticated
