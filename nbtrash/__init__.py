@@ -28,7 +28,7 @@ class TrashHandler(APIHandler):
     # 默认工作目录
     root_dir = "/home/jovyan/work"
     # 回收站目录，环境变量设置，必须保证和工作目录属于同一device
-    trash_dir = os.path.join("/home/jovyan/work", ".Trash")
+    trash_dir = os.path.join("/home/jovyan/work", ".Trash-%s" % os.getuid())
 
     trash_info_dir = os.path.join(trash_dir, "info")
     trash_file_dir = os.path.join(trash_dir, "files")
@@ -223,7 +223,6 @@ def load_jupyter_server_extension(nbapp):
     Called during notebook start
     """
     TrashHandler.root_dir = nbapp.contents_manager.root_dir
-    os.makedirs(TrashHandler.trash_dir, exist_ok=True)
 
     route_pattern = url_path_join(nbapp.web_app.settings['base_url'], '/trash')
     nbapp.web_app.add_handlers('.*', [(route_pattern, TrashHandler)])
