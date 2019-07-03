@@ -9,9 +9,9 @@ define([
         $("head").append("<link>");
         var css = $("head").children(":last");
         css.attr({
-              rel:  "stylesheet",
-              type: "text/css",
-              href: utils.get_body_data('baseUrl') + 'nbextensions/nbtrash/tree.css'
+            rel: "stylesheet",
+            type: "text/css",
+            href: utils.get_body_data('baseUrl') + 'nbextensions/nbtrash/tree.css'
         });
     };
 
@@ -80,25 +80,25 @@ define([
 
         var get_current_checked = function () {
             var current_checked = [];
-            $('.trash_list_item :checked').each(function(index, item) {
+            $('.trash_list_item :checked').each(function (index, item) {
                 var name = $(item).parent().parent().find($(".item_name")).text();
-                current_checked.push({Name: name});
+                current_checked.push({ Name: name });
             });
             return current_checked;
         };
 
-        var selection_changed = function() {
+        var selection_changed = function () {
             // Use a JQuery selector to find each row with a checked checkbox.  If
             // we decide to add more checkboxes in the future, this code will need
             // to be changed to distinguish which checkbox is the row selector.
             var checked = 0;
-            $('.trash_list_item :checked').each(function(index, item) {
+            $('.trash_list_item :checked').each(function (index, item) {
                 var parent = $(item).parent().parent();
 
                 // If the item doesn't have an upload button, isn't the
                 // breadcrumbs and isn't the parent folder '..', then it can be selected.
                 // Breadcrumbs path == ''.
-                if (parent.data('path') !== '' ) {
+                if (parent.data('path') !== '') {
                     checked++;
                 }
             });
@@ -114,7 +114,7 @@ define([
             // some of the items are selected, show it as checked.  Otherwise,
             // uncheck it.
             var total = 0;
-            $('.trash_list_item input[type=checkbox]').each(function(index, item) {
+            $('.trash_list_item input[type=checkbox]').each(function (index, item) {
                 var parent = $(item).parent().parent();
                 // If the item doesn't have an upload button and it's not the
                 // breadcrumbs, it can be selected.  Breadcrumbs path == ''.
@@ -138,7 +138,7 @@ define([
                 select_all.data('indeterminate', true);
             }
             // Update total counter
-            $('#trash-counter-select-all').html(checked===0 ? '&nbsp;' : checked);
+            $('#trash-counter-select-all').html(checked === 0 ? '&nbsp;' : checked);
 
             // If at aleast on item is selected, hide the selection instructions.
             if (checked > 0) {
@@ -152,7 +152,7 @@ define([
         var refresh_trash_list = function () {
             var transh_selected_before = get_current_checked();
             var base_url = utils.get_body_data("baseUrl");
-            var x_args_ =  {"v": Math.round(new Date().getTime())};
+            var x_args_ = { "v": Math.round(new Date().getTime()) };
             var url = utils.url_join_encode(base_url, '/trash');
             utils.ajax(url, {
                 type: "GET",
@@ -178,23 +178,23 @@ define([
                         data.sort(function (a, b) {
                             var mark = trash_sort_mark ? (a["DeletionDate"] > b["DeletionDate"]) :
                                 (a["DeletionDate"] <= b["DeletionDate"]);
-                            if (mark){
+                            if (mark) {
                                 return 1;
                             }
                             else {
                                 return -1;
                             }
                         });
-                        if (data.length === 0){
+                        if (data.length === 0) {
                             $("#transh_list_empty").show();
                         }
                         else {
                             $("#transh_list_empty").hide();
                         }
-                        for (var i=0;i<data.length;i++) {
+                        for (var i = 0; i < data.length; i++) {
                             trash_item = item_template;
                             trash_item = trash_item.replace("{type}", data[i].Type);
-                            if (data[i].Type === "directory"){
+                            if (data[i].Type === "directory") {
                                 data[i].Type = "folder";
                             }
                             var icon_type = data[i].Type + "_icon";
@@ -207,9 +207,9 @@ define([
                         $(".exceptcb").click(function (event) {
                             $(event.currentTarget).prev().click();
                         });
-                        transh_selected_before.forEach(function(item) {
+                        transh_selected_before.forEach(function (item) {
                             var trash_list_items = $('.trash_list_item');
-                            for (var i=0; i<trash_list_items.length; i++) {
+                            for (var i = 0; i < trash_list_items.length; i++) {
                                 var tlist_item = $(trash_list_items[i]);
                                 if (tlist_item.find($(".item_name")).text() === item.Name) {
                                     tlist_item.find('input[type=checkbox]').prop('checked', true);
@@ -246,14 +246,14 @@ define([
         $('<li>')
             .append(tab_link)
             .appendTo('#tabs');
-                // select tab if hash is set appropriately
+        // select tab if hash is set appropriately
         if (window.location.hash === '#' + tab_id) {
             tab_link.click();
         }
 
 
-        var trash_select = function(selection_type) {
-            $('.trash_list_item').each(function(index, item) {
+        var trash_select = function (selection_type) {
+            $('.trash_list_item').each(function (index, item) {
                 var item_type = $(item).attr('item_type');
                 var state = false;
                 state = state || (selection_type === "select-all");
@@ -275,7 +275,7 @@ define([
                     trash_select('select-all');
                 }
             }
-            else{
+            else {
                 if (select_all.prop('checked')) {
                     trash_select('select-all');
                 } else {
@@ -290,21 +290,21 @@ define([
             var selected = that.selected.slice();
             var trash_message = ("移动选中的{selected}个文件或文件夹到回收站？".replace("{selected}", selected.length));
             dialog.modal({
-                title : "移入回收站",
-                body : trash_message,
+                title: "移入回收站",
+                body: trash_message,
                 default_button: "Cancel",
-                buttons : {
+                buttons: {
                     Cancel: {},
                     确定: {
                         class: "btn-warning",
-                        click: function() {
+                        click: function () {
                             // Shutdown any/all selected notebooks before deleting
                             // the files.
                             that.shutdown_selected();
 
                             // Delete selected.
                             var transh_list = [];
-                            selected.forEach(function(item) {
+                            selected.forEach(function (item) {
                                 transh_list.push(item.path);
                             });
                             var base_url = utils.get_body_data("baseUrl");
@@ -317,12 +317,12 @@ define([
                                 timeout: 5000,
                                 success: function (data, status, xhr) {
                                     if (status === "success") {
-                                        if(data.status === 403){
+                                        if (data.status === 403) {
                                             dialog.modal({
-                                                title : "失败",
-                                                body : "文件移入回收站失败",  // FIXME: 增加失败原因
+                                                title: "失败",
+                                                body: "文件移入回收站失败",  // FIXME: 增加失败原因
                                                 default_button: "Cancel",
-                                                buttons : {
+                                                buttons: {
                                                     确认: {}
                                                 }
                                             });
@@ -359,12 +359,12 @@ define([
                 success: function (data, status, xhr) {
                     var trash_item = "";
                     if (status === "success") {
-                        if(data.status === 403){
+                        if (data.status === 403) {
                             dialog.modal({
-                                title : "恢复文件失败",
-                                body : "恢复文件或文件夹失败，可能是原文件位置已存在同名文件或回收站文件丢失",
-                                default_button: "Cancel",
-                                buttons : {
+                                title: "恢复文件失败",
+                                body: "恢复文件或文件夹失败，可能是原文件位置已存在同名文件或回收站文件丢失",
+                                default_button: "确认",
+                                buttons: {
                                     确认: {}
                                 }
                             });
@@ -414,7 +414,7 @@ define([
         // rearrange trash list
         var rearrange_trash_list_handler = function () {
             var trash_sort_mark = $("#trash-sort-mark").hasClass("fa-arrow-down");
-            if (trash_sort_mark === true){
+            if (trash_sort_mark === true) {
                 $("#trash-sort-mark").removeClass();
                 $("#trash-sort-mark").addClass("fa").addClass("fa-arrow-up");
             }
@@ -428,39 +428,39 @@ define([
         // clear recycle
         var clear_recycle_handler = function () {
             dialog.modal({
-            title : "清空回收站",
-            body : "清空回收站将永久删除回收站中的所有文件与文件夹，确认清空吗？",
-            default_button: "Cancel",
-            buttons : {
-                Cancel: {},
-                Delete : {
-                    class: "btn-danger",
-                    click: function() {
-                        var base_url = utils.get_body_data("baseUrl");
-                        var url = utils.url_join_encode(base_url, '/trash');
-                        utils.ajax(url, {
-                            type: "DELETE",
-                            async: true,
-                            data: JSON.stringify([]),
-                            dataType: "json",
-                            timeout: 5000,
-                            success: function (data, status, xhr) {
-                                var trash_item = "";
-                                if (status === "success") {
-                                    refresh_trash_list();
-                                    selection_changed();
+                title: "清空回收站",
+                body: "清空回收站将永久删除回收站中的所有文件与文件夹，确认清空吗？",
+                default_button: "Cancel",
+                buttons: {
+                    Cancel: {},
+                    Delete: {
+                        class: "btn-danger",
+                        click: function () {
+                            var base_url = utils.get_body_data("baseUrl");
+                            var url = utils.url_join_encode(base_url, '/trash');
+                            utils.ajax(url, {
+                                type: "DELETE",
+                                async: true,
+                                data: JSON.stringify([]),
+                                dataType: "json",
+                                timeout: 5000,
+                                success: function (data, status, xhr) {
+                                    var trash_item = "";
+                                    if (status === "success") {
+                                        refresh_trash_list();
+                                        selection_changed();
+                                    }
+                                    else {
+                                        console.log(status);
+                                    }
+                                },
+                                error: function (xhr, status, error) {
+                                    console.log(error);
                                 }
-                                else {
-                                    console.log(status);
-                                }
-                            },
-                            error: function (xhr, status, error) {
-                                console.log(error);
-                            }
-                        });
+                            });
+                        }
                     }
                 }
-            }
             });
         };
 
@@ -469,11 +469,14 @@ define([
         //$('#trash-select-all').click(select_all_trash_handler);
         $("#trash-button-select-all").click(select_all_trash_handler);
         $('#trash-select-notebooks').click(function (event) {
-            trash_select('select-notebooks');});
+            trash_select('select-notebooks');
+        });
         $('#trash-select-folders').click(function (event) {
-            trash_select('select-folders');});
+            trash_select('select-folders');
+        });
         $('#trash-select-files').click(function (event) {
-            trash_select('select-files');});
+            trash_select('select-files');
+        });
         $('#refresh_recycle_bin_list').click(refresh_trash_list);
         $('#recovery').click(recover_trash_handler);
         $('#delete-forver').click(delete_trash_forver_handler);
@@ -481,23 +484,23 @@ define([
         $('#drop_all_trash').click(clear_recycle_handler);
 
         var trash_interval_id = 0;
-        function disable_autorefresh_trash(){
+        function disable_autorefresh_trash() {
             clearInterval(trash_interval_id);
             trash_interval_id = 0;
         }
 
-        function enable_autorefresh_trash(){
+        function enable_autorefresh_trash() {
             refresh_trash_list();
             trash_interval_id = setInterval(refresh_trash_list, 1000 * 30);
         }
 
         // stop autorefresh when page lose focus
-        $(window).blur(function() {
+        $(window).blur(function () {
             disable_autorefresh_trash();
         });
 
         //re-enable when page get focus back
-        $(window).focus(function() {
+        $(window).focus(function () {
             enable_autorefresh_trash();
         });
         enable_autorefresh_trash()
