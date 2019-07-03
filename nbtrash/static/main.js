@@ -162,10 +162,10 @@ define([
                 data: x_args_,
                 success: function (data, status, xhr) {
                     var trash_item = "";
-                    var item_template = '<div class="trash_list_item  row trash_select" item_type = "{type}">\
+                    var item_template = '<div class="trash_list_item row trash_select" item_type = "{type}">\
                         <div class="col-md-12">\
                             <input type="checkbox" class = "trash-cb" style="float: left">\
-                            <div class="exceptcb" >\
+                            <div class="exceptcb" title="{path}">\
                                 <i class="item_icon {icon_type} icon-fixed-width"></i>\
                                 <span class="item_name" style="color: #555555">{name}</span>\
                                 <span class="pull-right" style="color:#000">{deletion_date}</span>\
@@ -200,6 +200,7 @@ define([
                             var icon_type = data[i].Type + "_icon";
                             trash_item = trash_item.replace("{icon_type}", icon_type);
                             trash_item = trash_item.replace("{name}", data[i].Name);
+                            trash_item = trash_item.replace("{path}", data[i].Path);
                             trash_item = trash_item.replace("{deletion_date}", data[i].DeletionDate);
                             $("#transh_list_empty").after(trash_item);
                         }

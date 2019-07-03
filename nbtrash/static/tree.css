@@ -3,9 +3,6 @@
   padding-top: 4px;
 }
 
-.trash_list_item:hover .trash_list_item {
-  background-color: #ddd;
-}
 .trash_list_item a {
   text-decoration: none;
 }
@@ -42,12 +39,4 @@
   height: 22px;
   line-height: 14px;
   margin: 0;
-}
-
-.trash_list_item {
-  border-bottom: 1px solid #ddd;
-}
-
-.trash_list_item:last-child {
-  border-bottom: 0;
 }
