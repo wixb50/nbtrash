@@ -167,8 +167,8 @@ define([
                             <input type="checkbox" class = "trash-cb" style="float: left">\
                             <div class="exceptcb" title="{path}">\
                                 <i class="item_icon {icon_type} icon-fixed-width"></i>\
-                                <span class="item_name" style="color: #555555">{name}</span>\
-                                <span class="pull-right" style="color:#000">{deletion_date}</span>\
+                                <span class="item_name">{name}</span>\
+                                <span class="pull-right">{deletion_date}</span>\
                             </div>\
                         </div>\
                     </div>';
