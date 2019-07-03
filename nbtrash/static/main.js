@@ -201,7 +201,7 @@ define([
                             trash_item = trash_item.replace("{icon_type}", icon_type);
                             trash_item = trash_item.replace("{name}", data[i].Name);
                             trash_item = trash_item.replace("{path}", data[i].Path);
-                            trash_item = trash_item.replace("{deletion_date}", data[i].DeletionDate);
+                            trash_item = trash_item.replace("{deletion_date}", data[i].DeletionDate.replace("T", " "));
                             $("#transh_list_empty").after(trash_item);
                         }
                         $(".trash-cb").change(selection_changed);
