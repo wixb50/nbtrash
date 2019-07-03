@@ -223,6 +223,7 @@ def load_jupyter_server_extension(nbapp):
     Called during notebook start
     """
     TrashHandler.root_dir = nbapp.contents_manager.root_dir
+    os.makedirs(TrashHandler.trash_dir, 0o700, exist_ok=True)
 
     route_pattern = url_path_join(nbapp.web_app.settings['base_url'], '/trash')
     nbapp.web_app.add_handlers('.*', [(route_pattern, TrashHandler)])
